@@ -113,6 +113,8 @@ test:
 	@if diff traces/truckin-p.out traces/testing.txt > /dev/null; then echo "$(GREEN)truckin -p\tPASSED"; else echo "$(RED)truckin -p\tFAILED"; fi
 	@rm traces/testing.txt
 
+	@echo "$(NC)"
+
 clean:
 	clear
 	rm proj4
