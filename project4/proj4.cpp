@@ -1,3 +1,16 @@
+/**
+* Jacob Alspaw
+* jaa134
+* proj4.cpp
+* 11-14-2018
+* 
+* Source file for proj4; Implements variables and 
+* method used for processing a packet trace file.
+* Program will run in one of four modes, as directed 
+* on the command line: summary, length analysis,
+* packet printing, traffic matrix.
+**/
+
 #include "proj4.hpp"
 
 void Proj4::debug(string message) {

@@ -10,16 +10,17 @@ test:
 	@echo "COMPILING...\n"
 	@g++ -std=c++11 -o proj4 proj4.cpp main.cpp
 
-	@echo "RUNNNIG TESTS..."
 
-	@echo "\n"
+
+
+	@echo "RUNNNIG TESTS..."
+	@echo ""
 	@echo "----------------------"
 	@echo "----------------------"
 	@echo "|  TESTING   REPORT  |"
 	@echo "----------------------"
 	@echo "TEST-NAME\tRESULT"
 	@echo "----------------------"
-
 
 
 
@@ -112,6 +113,8 @@ test:
 	@./proj4 -t traces/truckin.trace -p > traces/testing.txt
 	@if diff traces/truckin-p.out traces/testing.txt > /dev/null; then echo "$(GREEN)truckin -p\tPASSED"; else echo "$(RED)truckin -p\tFAILED"; fi
 	@rm traces/testing.txt
+
+
 
 	@echo "$(NC)"
 
