@@ -1,0 +1,26 @@
+  - You can find a structure for the Ethernet header in
+    /usr/include/net/ethernet.h as struct ether_header.
+
+  - You can find a structure for the IP header in
+    /usr/include/netinet/ip.h as struct iphdr.
+
+  - You can find a structure for the UDP header in
+    /usr/include/netinet/udp.h as struct udphdr.
+
+  - You can find a structure for the TCP header in
+    /usr/include/netinet/tcp.h as struct tcphdr.
+
+  - You can find constants for IP protocol numbers in
+    /usr/include/netinet/in.h.
+
+
+Just to clarify ... you should include an entry in the -m output for
+all cases where some HostA sends packet(s) to a HostB.  Often TCP
+sends packets with no payload (so-called "pure acknowledgments").
+Therefore, you may show a line with zero payload bytes, however, you
+should still print the line.  E.g., you may have uni-directional
+data flow and so get two lines like this:
+ 192.168.42.33 10.0.3.78 4124
+ 10.0.3.78 192.168.42.33 0
+for a case where 10.0.3.78 sent ACKs, but no actual application data
+bytes
