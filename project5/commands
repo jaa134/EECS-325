@@ -1,0 +1,32 @@
+# become root
+sudo -s
+
+
+
+
+# install arp-scan
+apt-get install arp-scan
+
+# set suid on arp-scan
+cd /usr/bin
+chmod +s ./arp-scan
+
+# use arp-scan
+arp-scan -l
+
+
+
+
+
+# install tcpdump
+apt-get install tcpdump
+
+# set sui on tcp-dump
+cd /usr/sbin
+chmod +s ./tcpdump
+
+# use tcpdump with timeout
+timeout 10 tcpdump -e > output.txt
+
+
+

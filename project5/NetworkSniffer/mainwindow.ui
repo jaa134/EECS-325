@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>420</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>420</width>
+    <height>400</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>420</width>
+    <height>400</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Network Anlaysis</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QStackedWidget" name="stackedWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>420</width>
+      <height>400</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>2</number>
+    </property>
+    <widget class="QWidget" name="home">
+     <widget class="QPushButton" name="recordButton">
+      <property name="geometry">
+       <rect>
+        <x>65</x>
+        <y>350</y>
+        <width>140</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Record</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="clientsLabel">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>5</y>
+        <width>171</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>30</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>CLIENTS</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QFrame" name="clientsGraph">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>50</y>
+        <width>375</width>
+        <height>100</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #fff;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="clientsMaxLine">
+       <property name="geometry">
+        <rect>
+         <x>1</x>
+         <y>10</y>
+         <width>373</width>
+         <height>1</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(0, 0, 0, 0);
+border: 1px dashed #000;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="reportButton">
+      <property name="geometry">
+       <rect>
+        <x>215</x>
+        <y>350</y>
+        <width>140</width>
+        <height>35</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Report</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="durationLabel">
+      <property name="geometry">
+       <rect>
+        <x>235</x>
+        <y>25</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Duration:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="durationValue">
+      <property name="geometry">
+       <rect>
+        <x>325</x>
+        <y>25</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>0s</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QFrame" name="trafficGraph">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>230</y>
+        <width>375</width>
+        <height>100</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #fff;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="trafficMaxLine">
+       <property name="geometry">
+        <rect>
+         <x>1</x>
+         <y>10</y>
+         <width>373</width>
+         <height>1</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(0, 0, 0, 0);
+border: 1px dashed #000;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="trafficLabel">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>185</y>
+        <width>171</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>30</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>TRAFFIC</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="clientsMinValue">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>139</y>
+        <width>30</width>
+        <height>11</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="clientsMaxValue">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>50</y>
+        <width>30</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>10</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="trafficMinValue">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>319</y>
+        <width>30</width>
+        <height>11</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="trafficMaxValue">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>230</y>
+        <width>30</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>10</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>205</y>
+        <width>100</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>(units)</string>
+      </property>
+     </widget>
+     <zorder>recordButton</zorder>
+     <zorder>clientsLabel</zorder>
+     <zorder>reportButton</zorder>
+     <zorder>durationLabel</zorder>
+     <zorder>durationValue</zorder>
+     <zorder>trafficGraph</zorder>
+     <zorder>trafficLabel</zorder>
+     <zorder>clientsMinValue</zorder>
+     <zorder>clientsMaxValue</zorder>
+     <zorder>clientsGraph</zorder>
+     <zorder>trafficMinValue</zorder>
+     <zorder>trafficMaxValue</zorder>
+     <zorder>label_4</zorder>
+    </widget>
+    <widget class="QWidget" name="transition">
+     <widget class="QLabel" name="transitionLabel">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>130</y>
+        <width>400</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>25</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Transition Message</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QProgressBar" name="progressBar">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>200</y>
+        <width>400</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="value">
+       <number>0</number>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="report">
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>295</y>
+        <width>180</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Network Usage Trend</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="clientsTrendGraph">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>205</y>
+        <width>410</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #fff;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+     <widget class="QFrame" name="frame_2">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>315</y>
+        <width>410</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #fff;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>185</y>
+        <width>180</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Client Connection Trend</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>35</y>
+        <width>195</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Minimum number of clients found</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(243, 243, 243);</string>
+      </property>
+      <property name="text">
+       <string>  Minimum:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>55</y>
+        <width>195</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Maximum number of clients found</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(211, 215, 207);</string>
+      </property>
+      <property name="text">
+       <string>  Maximum:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>95</y>
+        <width>195</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Average number of clients found</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(211, 215, 207);</string>
+      </property>
+      <property name="text">
+       <string>  Average:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>75</y>
+        <width>195</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Number of data points collected</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(243, 243, 243);</string>
+      </property>
+      <property name="text">
+       <string>  Data Points:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>5</y>
+        <width>101</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>A client is defined as a MAC Address and IP Address pair</string>
+      </property>
+      <property name="text">
+       <string>Client Info</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>215</x>
+        <y>5</y>
+        <width>111</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Traffic Info</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>115</y>
+        <width>195</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Number of distinct IP Adresses found</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(243, 243, 243);</string>
+      </property>
+      <property name="text">
+       <string>  Distinct IPs:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>135</y>
+        <width>195</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Number of distinct MAC Adresses found</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(211, 215, 207);</string>
+      </property>
+      <property name="text">
+       <string>  Distinct MACs:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>155</y>
+        <width>195</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Number of distinct Clients found</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(243, 243, 243);</string>
+      </property>
+      <property name="text">
+       <string>  Distinct Clients:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="clientDistinctClientsValue">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>155</y>
+        <width>70</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="clientDistinctMacsValue">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>135</y>
+        <width>70</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="clientDistinctIpsValue">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>115</y>
+        <width>70</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="clientAverageValue">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>95</y>
+        <width>70</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="clientNumPointsValue">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>75</y>
+        <width>70</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="clientMaxValue">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>55</y>
+        <width>70</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="clientMinValue">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>35</y>
+        <width>70</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <zorder>label_3</zorder>
+     <zorder>clientsTrendGraph</zorder>
+     <zorder>frame_2</zorder>
+     <zorder>label_5</zorder>
+     <zorder>label_2</zorder>
+     <zorder>label_6</zorder>
+     <zorder>label_8</zorder>
+     <zorder>label_9</zorder>
+     <zorder>label_10</zorder>
+     <zorder>label_11</zorder>
+     <zorder>label_12</zorder>
+     <zorder>label_13</zorder>
+     <zorder>label_14</zorder>
+     <zorder>clientMinValue</zorder>
+     <zorder>clientMaxValue</zorder>
+     <zorder>clientNumPointsValue</zorder>
+     <zorder>clientAverageValue</zorder>
+     <zorder>clientDistinctIpsValue</zorder>
+     <zorder>clientDistinctMacsValue</zorder>
+     <zorder>clientDistinctClientsValue</zorder>
+    </widget>
+    <widget class="QWidget" name="error">
+     <widget class="QTextBrowser" name="textBrowser">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>100</y>
+        <width>400</width>
+        <height>250</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>400</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>30</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>System Error</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

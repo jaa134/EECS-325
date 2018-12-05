@@ -1,0 +1,13 @@
+Interface: wlo1, datalink type: EN10MB (Ethernet)
+Starting arp-scan 1.8.1 with 256 hosts (http://www.nta-monitor.com/tools/arp-scan/)
+192.168.0.1	ec:08:6b:ed:59:e9	(Unknown)
+192.168.0.103	54:26:96:df:14:2f	(Unknown)
+192.168.0.111	6c:56:97:05:d3:ad	(Unknown)
+192.168.0.112	78:e3:b5:c1:6b:10	Hewlett Packard
+192.168.0.101	50:c7:bf:92:3e:7a	(Unknown)
+192.168.0.104	5c:a3:9d:4b:12:ba	(Unknown)
+192.168.0.105	e0:c7:67:07:e6:dc	(Unknown)
+192.168.0.107	0c:62:a6:55:81:b3	(Unknown)
+
+8 packets received by filter, 0 packets dropped by kernel
+Ending arp-scan 1.8.1: 256 hosts scanned in 2.107 seconds (121.50 hosts/sec). 8 responded
