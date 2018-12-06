@@ -27,11 +27,13 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    arpsniffer.cpp
+    arpsniffer.cpp \
+    tcpdumpsniffer.cpp
 
 HEADERS += \
     mainwindow.h \
-    arpsniffer.h
+    arpsniffer.h \
+    tcpdumpsniffer.h
 
 FORMS += \
     mainwindow.ui

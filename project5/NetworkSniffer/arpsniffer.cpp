@@ -1,6 +1,6 @@
 #include "arpsniffer.h"
 
-ArpSniffer::ArpSniffer() {
+ArpSniffer::ArpSniffer(QObject *parent) : QObject(parent) {
     isStopRequested = false;
 
     summary.current = 0;
@@ -10,10 +10,12 @@ ArpSniffer::ArpSniffer() {
     summary.samplePoints = 0;
     summary.average = 0;
 
-    updateTimer = new QTimer();
+    updateTimer = new QTimer(this);
     updateTimer->setInterval(2000);
+    updateTimer->setSingleShot(true);
     connect(updateTimer, &QTimer::timeout, this, &ArpSniffer::update);
     updateTimer->start();
+    isRunning = true;
 }
 
 void ArpSniffer::stop() {
@@ -22,7 +24,7 @@ void ArpSniffer::stop() {
 
 void ArpSniffer::update() {
     if (isStopRequested) {
-        updateTimer->stop();
+        isRunning = false;
         emit stopped();
         return;
     }
@@ -50,6 +52,8 @@ void ArpSniffer::update() {
         qDebug() << "File IO";
         emit errored("File IO");
     }
+
+    updateTimer->start();
 }
 
 QString ArpSniffer::makeFileName() {
@@ -58,7 +62,7 @@ QString ArpSniffer::makeFileName() {
 }
 
 void ArpSniffer::parseSystemCall(QString data) {
-    QList<Client> connections;
+    connections.clear();
     QStringList split = data.replace('\n', ' ').replace('\t', ' ').split(' ');
     for (int i = 0; i < split.length() - 1; i++) {
         if (isValidIpAddress(split.at(i)) && isValidMacAddress(split.at(i + 1))) {
@@ -70,12 +74,12 @@ void ArpSniffer::parseSystemCall(QString data) {
         }
     }
 
-    saveState(connections);
+    saveState();
     updateReport();
 }
 
 bool ArpSniffer::isValidIpAddress(QString ip) {
-    QRegExp regExMacAddress("^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$");
+    QRegExp regExMacAddress("^((25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)$");
     return regExMacAddress.exactMatch(ip);
 }
 
@@ -84,9 +88,9 @@ bool ArpSniffer::isValidMacAddress(QString mac) {
     return regExMacAddress.exactMatch(mac.toUpper());
 }
 
-void ArpSniffer::saveState(QList<Client> connections) {
+void ArpSniffer::saveState() {
     State s;
-    s.connections = connections;
+    s.numConnections = connections.length();
     s.timeStamp = QDateTime::currentDateTime();
     history.append(s);
 
@@ -109,12 +113,12 @@ void ArpSniffer::saveState(QList<Client> connections) {
 }
 
 void ArpSniffer::updateReport() {
-    summary.current = history.last().connections.length();
+    summary.current = connections.length();
     if (summary.current > summary.max)
         summary.max = summary.current;
     if (summary.current < summary.min)
         summary.min = summary.current;
-    summary.total += history.last().connections.length();
+    summary.total += connections.length();
     summary.samplePoints++;
     summary.average = summary.total / (double)summary.samplePoints;
     summary.distinctIp = distinctIp.length();

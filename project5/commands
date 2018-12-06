@@ -21,12 +21,19 @@ arp-scan -l
 # install tcpdump
 apt-get install tcpdump
 
-# set sui on tcp-dump
+# set suid on tcp-dump
 cd /usr/sbin
 chmod +s ./tcpdump
 
 # use tcpdump with timeout
-timeout 10 tcpdump -e > output.txt
+# ip only show IPv4 packets
+# -v verbose mode used to get transport protocol
+# -t dont include timestamp
+# -q hide more indepth protocol information
+# -n display IP addresses and port numbers instead of domain and service names
+# -N Don't print domain name qualification of host names
+timeout 10 tcpdump ip -v -t -q -n -N > output.txt
+
 
 
 

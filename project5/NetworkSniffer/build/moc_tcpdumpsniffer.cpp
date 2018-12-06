@@ -1,16 +1,16 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'arpsniffer.h'
+** Meta object code from reading C++ file 'tcpdumpsniffer.h'
 **
 ** Created by: The Qt Meta Object Compiler version 67 (Qt 5.11.2)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../arpsniffer.h"
+#include "../tcpdumpsniffer.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'arpsniffer.h' doesn't include <QObject>."
+#error "The header file 'tcpdumpsniffer.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
 #error "This file was generated using the moc from 5.11.2. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -20,31 +20,31 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_ArpSniffer_t {
+struct qt_meta_stringdata_TcpDumpSniffer_t {
     QByteArrayData data[6];
-    char stringdata0[43];
+    char stringdata0[47];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_ArpSniffer_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_TcpDumpSniffer_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_ArpSniffer_t qt_meta_stringdata_ArpSniffer = {
+static const qt_meta_stringdata_TcpDumpSniffer_t qt_meta_stringdata_TcpDumpSniffer = {
     {
-QT_MOC_LITERAL(0, 0, 10), // "ArpSniffer"
-QT_MOC_LITERAL(1, 11, 7), // "updated"
-QT_MOC_LITERAL(2, 19, 0), // ""
-QT_MOC_LITERAL(3, 20, 7), // "stopped"
-QT_MOC_LITERAL(4, 28, 7), // "errored"
-QT_MOC_LITERAL(5, 36, 6) // "update"
+QT_MOC_LITERAL(0, 0, 14), // "TcpDumpSniffer"
+QT_MOC_LITERAL(1, 15, 7), // "updated"
+QT_MOC_LITERAL(2, 23, 0), // ""
+QT_MOC_LITERAL(3, 24, 7), // "stopped"
+QT_MOC_LITERAL(4, 32, 7), // "errored"
+QT_MOC_LITERAL(5, 40, 6) // "update"
 
     },
-    "ArpSniffer\0updated\0\0stopped\0errored\0"
+    "TcpDumpSniffer\0updated\0\0stopped\0errored\0"
     "update"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_ArpSniffer[] = {
+static const uint qt_meta_data_TcpDumpSniffer[] = {
 
  // content:
        7,       // revision
@@ -76,10 +76,10 @@ static const uint qt_meta_data_ArpSniffer[] = {
        0        // eod
 };
 
-void ArpSniffer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void TcpDumpSniffer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        ArpSniffer *_t = static_cast<ArpSniffer *>(_o);
+        TcpDumpSniffer *_t = static_cast<TcpDumpSniffer *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->updated(); break;
@@ -91,22 +91,22 @@ void ArpSniffer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (ArpSniffer::*)();
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ArpSniffer::updated)) {
+            using _t = void (TcpDumpSniffer::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&TcpDumpSniffer::updated)) {
                 *result = 0;
                 return;
             }
         }
         {
-            using _t = void (ArpSniffer::*)();
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ArpSniffer::stopped)) {
+            using _t = void (TcpDumpSniffer::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&TcpDumpSniffer::stopped)) {
                 *result = 1;
                 return;
             }
         }
         {
-            using _t = void (ArpSniffer::*)(QString );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&ArpSniffer::errored)) {
+            using _t = void (TcpDumpSniffer::*)(QString );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&TcpDumpSniffer::errored)) {
                 *result = 2;
                 return;
             }
@@ -114,26 +114,26 @@ void ArpSniffer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     }
 }
 
-QT_INIT_METAOBJECT const QMetaObject ArpSniffer::staticMetaObject = {
-    { &QObject::staticMetaObject, qt_meta_stringdata_ArpSniffer.data,
-      qt_meta_data_ArpSniffer,  qt_static_metacall, nullptr, nullptr}
+QT_INIT_METAOBJECT const QMetaObject TcpDumpSniffer::staticMetaObject = {
+    { &QObject::staticMetaObject, qt_meta_stringdata_TcpDumpSniffer.data,
+      qt_meta_data_TcpDumpSniffer,  qt_static_metacall, nullptr, nullptr}
 };
 
 
-const QMetaObject *ArpSniffer::metaObject() const
+const QMetaObject *TcpDumpSniffer::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *ArpSniffer::qt_metacast(const char *_clname)
+void *TcpDumpSniffer::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_ArpSniffer.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_TcpDumpSniffer.stringdata0))
         return static_cast<void*>(this);
     return QObject::qt_metacast(_clname);
 }
 
-int ArpSniffer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int TcpDumpSniffer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QObject::qt_metacall(_c, _id, _a);
     if (_id < 0)
@@ -151,19 +151,19 @@ int ArpSniffer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void ArpSniffer::updated()
+void TcpDumpSniffer::updated()
 {
     QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
 }
 
 // SIGNAL 1
-void ArpSniffer::stopped()
+void TcpDumpSniffer::stopped()
 {
     QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
 }
 
 // SIGNAL 2
-void ArpSniffer::errored(QString _t1)
+void TcpDumpSniffer::errored(QString _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 2, _a);

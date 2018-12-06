@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = NetworkSniffer1.0.0
-DISTDIR = /home/jacob/Desktop/NetworkSniffer/build/.tmp/NetworkSniffer1.0.0
+DISTDIR = /home/jacob/Desktop/Projects/EECS-325/project5/NetworkSniffer/build/.tmp/NetworkSniffer1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/opt/Qt5.11.2/5.11.2/gcc_64/lib
 LIBS          = $(SUBLIBS) -L/opt/Qt5.11.2/5.11.2/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
@@ -52,13 +52,17 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../main.cpp \
 		../mainwindow.cpp \
-		../arpsniffer.cpp moc_mainwindow.cpp \
-		moc_arpsniffer.cpp
+		../arpsniffer.cpp \
+		../tcpdumpsniffer.cpp moc_mainwindow.cpp \
+		moc_arpsniffer.cpp \
+		moc_tcpdumpsniffer.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		arpsniffer.o \
+		tcpdumpsniffer.o \
 		moc_mainwindow.o \
-		moc_arpsniffer.o
+		moc_arpsniffer.o \
+		moc_tcpdumpsniffer.o
 DIST          = /opt/Qt5.11.2/5.11.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.11.2/5.11.2/gcc_64/mkspecs/common/unix.conf \
 		/opt/Qt5.11.2/5.11.2/gcc_64/mkspecs/common/linux.conf \
@@ -249,9 +253,11 @@ DIST          = /opt/Qt5.11.2/5.11.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.11.2/5.11.2/gcc_64/mkspecs/features/yacc.prf \
 		/opt/Qt5.11.2/5.11.2/gcc_64/mkspecs/features/lex.prf \
 		../../NetworkSniffer.pro ../mainwindow.h \
-		../arpsniffer.h ../main.cpp \
+		../arpsniffer.h \
+		../tcpdumpsniffer.h ../main.cpp \
 		../mainwindow.cpp \
-		../arpsniffer.cpp
+		../arpsniffer.cpp \
+		../tcpdumpsniffer.cpp
 QMAKE_TARGET  = NetworkSniffer
 DESTDIR       = 
 TARGET        = NetworkSniffer
@@ -667,8 +673,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/Qt5.11.2/5.11.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../mainwindow.h ../arpsniffer.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../main.cpp ../mainwindow.cpp ../arpsniffer.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../mainwindow.h ../arpsniffer.h ../tcpdumpsniffer.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../main.cpp ../mainwindow.cpp ../arpsniffer.cpp ../tcpdumpsniffer.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../mainwindow.ui $(DISTDIR)/
 
 
@@ -701,9 +707,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /opt/Qt5.11.2/5.11.2/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h /opt/Qt5.11.2/5.11.2/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_arpsniffer.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_arpsniffer.cpp moc_tcpdumpsniffer.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_arpsniffer.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_arpsniffer.cpp moc_tcpdumpsniffer.cpp
 moc_mainwindow.cpp: ../arpsniffer.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QDebug \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qdebug.h \
@@ -795,6 +801,9 @@ moc_mainwindow.cpp: ../arpsniffer.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qurlquery.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qvector2d.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qtouchdevice.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QTimer \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qtimer.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qbasictimer.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/QMainWindow \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qmainwindow.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -826,9 +835,6 @@ moc_mainwindow.cpp: ../arpsniffer.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qframe.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QThread \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qthread.h \
-		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QTimer \
-		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qtimer.h \
-		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qbasictimer.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork/QNetworkAccessManager \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork/qnetworkaccessmanager.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork/qtnetworkglobal.h \
@@ -855,10 +861,15 @@ moc_mainwindow.cpp: ../arpsniffer.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork/QNetworkReply \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork/qnetworkreply.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QIODevice \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QElapsedTimer \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qelapsedtimer.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/QMessageBox \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qmessagebox.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qdialog.h \
 		../mainwindow.h \
 		moc_predefs.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/bin/moc
-	/opt/Qt5.11.2/5.11.2/gcc_64/bin/moc $(DEFINES) --include /home/jacob/Desktop/NetworkSniffer/build/moc_predefs.h -I/opt/Qt5.11.2/5.11.2/gcc_64/mkspecs/linux-g++ -I/home/jacob/Desktop/NetworkSniffer -I/opt/Qt5.11.2/5.11.2/gcc_64/include -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../mainwindow.h -o moc_mainwindow.cpp
+	/opt/Qt5.11.2/5.11.2/gcc_64/bin/moc $(DEFINES) --include /home/jacob/Desktop/Projects/EECS-325/project5/NetworkSniffer/build/moc_predefs.h -I/opt/Qt5.11.2/5.11.2/gcc_64/mkspecs/linux-g++ -I/home/jacob/Desktop/Projects/EECS-325/project5/NetworkSniffer -I/opt/Qt5.11.2/5.11.2/gcc_64/include -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../mainwindow.h -o moc_mainwindow.cpp
 
 moc_arpsniffer.cpp: /opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QDebug \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qdebug.h \
@@ -950,10 +961,68 @@ moc_arpsniffer.cpp: /opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QDebug \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qurlquery.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qvector2d.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qtouchdevice.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QTimer \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qtimer.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qbasictimer.h \
 		../arpsniffer.h \
 		moc_predefs.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/bin/moc
-	/opt/Qt5.11.2/5.11.2/gcc_64/bin/moc $(DEFINES) --include /home/jacob/Desktop/NetworkSniffer/build/moc_predefs.h -I/opt/Qt5.11.2/5.11.2/gcc_64/mkspecs/linux-g++ -I/home/jacob/Desktop/NetworkSniffer -I/opt/Qt5.11.2/5.11.2/gcc_64/include -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../arpsniffer.h -o moc_arpsniffer.cpp
+	/opt/Qt5.11.2/5.11.2/gcc_64/bin/moc $(DEFINES) --include /home/jacob/Desktop/Projects/EECS-325/project5/NetworkSniffer/build/moc_predefs.h -I/opt/Qt5.11.2/5.11.2/gcc_64/mkspecs/linux-g++ -I/home/jacob/Desktop/Projects/EECS-325/project5/NetworkSniffer -I/opt/Qt5.11.2/5.11.2/gcc_64/include -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../arpsniffer.h -o moc_arpsniffer.cpp
+
+moc_tcpdumpsniffer.cpp: /opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QObject \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qtcore-config.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qversiontagging.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qstringliteral.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qstringalgorithms.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qstringview.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qstringbuilder.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qiterator.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qhashfunctions.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qpair.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qbytearraylist.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qstringlist.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qregexp.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qstringmatcher.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qmetatype.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qobject_impl.h \
+		../tcpdumpsniffer.h \
+		moc_predefs.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/bin/moc
+	/opt/Qt5.11.2/5.11.2/gcc_64/bin/moc $(DEFINES) --include /home/jacob/Desktop/Projects/EECS-325/project5/NetworkSniffer/build/moc_predefs.h -I/opt/Qt5.11.2/5.11.2/gcc_64/mkspecs/linux-g++ -I/home/jacob/Desktop/Projects/EECS-325/project5/NetworkSniffer -I/opt/Qt5.11.2/5.11.2/gcc_64/include -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork -I/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../tcpdumpsniffer.h -o moc_tcpdumpsniffer.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1068,6 +1137,9 @@ main.o: ../main.cpp ../mainwindow.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qurlquery.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qvector2d.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qtouchdevice.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QTimer \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qtimer.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qbasictimer.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/QMainWindow \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qmainwindow.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1099,9 +1171,6 @@ main.o: ../main.cpp ../mainwindow.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qframe.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QThread \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qthread.h \
-		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QTimer \
-		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qtimer.h \
-		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qbasictimer.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork/QNetworkAccessManager \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork/qnetworkaccessmanager.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork/qtnetworkglobal.h \
@@ -1128,6 +1197,11 @@ main.o: ../main.cpp ../mainwindow.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork/QNetworkReply \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork/qnetworkreply.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QIODevice \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QElapsedTimer \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qelapsedtimer.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/QMessageBox \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qmessagebox.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qdialog.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/QApplication \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qapplication.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1229,6 +1303,9 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qurlquery.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qvector2d.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qtouchdevice.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QTimer \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qtimer.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qbasictimer.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/QMainWindow \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qmainwindow.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1260,9 +1337,6 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qframe.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QThread \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qthread.h \
-		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QTimer \
-		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qtimer.h \
-		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qbasictimer.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork/QNetworkAccessManager \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork/qnetworkaccessmanager.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork/qtnetworkglobal.h \
@@ -1289,6 +1363,11 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork/QNetworkReply \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtNetwork/qnetworkreply.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QIODevice \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QElapsedTimer \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qelapsedtimer.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/QMessageBox \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qmessagebox.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qdialog.h \
 		ui_mainwindow.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/QApplication \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qapplication.h \
@@ -1298,9 +1377,22 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qguiapplication.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qinputmethod.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/QFrame \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/QProgressBar \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qprogressbar.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/QPushButton \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qpushbutton.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/QStackedWidget \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qstackedwidget.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/QTextBrowser \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qtextbrowser.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qtextedit.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qtextdocument.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qtextoption.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qtextcursor.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qtextformat.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qpen.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../mainwindow.cpp
 
@@ -1394,14 +1486,73 @@ arpsniffer.o: ../arpsniffer.cpp ../arpsniffer.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qurl.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qurlquery.h \
 		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qvector2d.h \
-		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qtouchdevice.h
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtGui/qtouchdevice.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QTimer \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qtimer.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qbasictimer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o arpsniffer.o ../arpsniffer.cpp
+
+tcpdumpsniffer.o: ../tcpdumpsniffer.cpp ../tcpdumpsniffer.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/QObject \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qtcore-config.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qversiontagging.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qstringliteral.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qstringalgorithms.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qstringview.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qstringbuilder.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qiterator.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qhashfunctions.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qpair.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qbytearraylist.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qstringlist.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qregexp.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qstringmatcher.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qmetatype.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		/opt/Qt5.11.2/5.11.2/gcc_64/include/QtCore/qobject_impl.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tcpdumpsniffer.o ../tcpdumpsniffer.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
 
 moc_arpsniffer.o: moc_arpsniffer.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_arpsniffer.o moc_arpsniffer.cpp
+
+moc_tcpdumpsniffer.o: moc_tcpdumpsniffer.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_tcpdumpsniffer.o moc_tcpdumpsniffer.cpp
 
 ####### Install
 

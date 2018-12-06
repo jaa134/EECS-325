@@ -37,6 +37,8 @@ MainWindow::~MainWindow()
     delete ui;
     arpSnifferThread.quit();
     arpSnifferThread.wait();
+    tcpDumpSnifferThread.quit();
+    tcpDumpSnifferThread.wait();
 }
 
 bool MainWindow::hasNetworkConnection() {
@@ -59,8 +61,15 @@ void MainWindow::onRecord() {
 
     arpSniffer = new ArpSniffer();
     connect(arpSniffer, &ArpSniffer::updated, this, &MainWindow::onArpSnifferUpdated);
+    connect(arpSniffer, &ArpSniffer::errored, this, &MainWindow::onArpSnifferErrored);
     arpSniffer->moveToThread(&arpSnifferThread);
     arpSnifferThread.start();
+
+    tcpDumpSniffer = new TcpDumpSniffer();
+    connect(tcpDumpSniffer, &TcpDumpSniffer::updated, this, &MainWindow::onTcpDumpSnifferUpdated);
+    connect(tcpDumpSniffer, &TcpDumpSniffer::errored, this, &MainWindow::onTcpDumpSnifferErrored);
+    tcpDumpSniffer->moveToThread(&tcpDumpSnifferThread);
+    tcpDumpSnifferThread.start();
 
     int durationInterval = 100;
     durationUpdateTimer.setInterval(durationInterval);
@@ -79,11 +88,18 @@ void MainWindow::onReport() {
 
     if (reply == QMessageBox::Yes) {
         ui->stackedWidget->setCurrentIndex(TRANSITION);
-        connect(arpSniffer, &ArpSniffer::stopped, this, &MainWindow::finalizeReport);
-        ui->transitionLabel->setText("Stopping service...");
+        connect(arpSniffer, &ArpSniffer::stopped, this, &MainWindow::onServicesStopped);
+        connect(tcpDumpSniffer, &TcpDumpSniffer::stopped, this, &MainWindow::onServicesStopped);
+        ui->transitionLabel->setText("Stopping services...");
         ui->progressBar->setValue(0);
         arpSniffer->stop();
+        tcpDumpSniffer->stop();
     }
+}
+
+void MainWindow::onServicesStopped() {
+    if (!arpSniffer->isRunning && !tcpDumpSniffer->isRunning)
+        finalizeReport();
 }
 
 void MainWindow::onArpSnifferUpdated() {
@@ -91,26 +107,34 @@ void MainWindow::onArpSnifferUpdated() {
 }
 
 void MainWindow::drawClientsGraph() {
-    ui->clientsMaxValue->setText(QString::number(arpSniffer->summary.max));
+    double maxClients = arpSniffer->summary.max;
+    if (maxClients < 100)
+        ui->clientsMaxValue->setText(QString::number(maxClients, 'f', 1));
+    else if (maxClients < 1000)
+        ui->clientsMaxValue->setText(QString::number(maxClients, 'f', 0));
+    else if (maxClients < 10000)
+        ui->clientsMaxValue->setText(QString::number(maxClients / 1000.0, 'f', 1) + "k");
+    else if (maxClients < 100000)
+        ui->clientsMaxValue->setText(QString::number(maxClients / 1000.0, 'f', 0) + "k");
 
     QLabel *newLabel = new QLabel(ui->clientsGraph);
     newLabel->setText(QString::number(arpSniffer->summary.current));
     newLabel->setStyleSheet("background-color: #777; color: rgba(0,0,0,0)");
     newLabel->setGeometry(0, 0, ui->clientsGraph->width(), ui->clientsGraph->height());
-    historyValues.append(newLabel);
+    clientGraphValues.append(newLabel);
 
     int numSlots = 25;
-    if (historyValues.length() > numSlots) {
-        QLabel *removedLabel = historyValues.takeFirst();
+    if (clientGraphValues.length() > numSlots) {
+        QLabel *removedLabel = clientGraphValues.takeFirst();
         removedLabel->hide();
         delete removedLabel;
     }
 
-    for (int i = 0; i < historyValues.length(); i++) {
-        QLabel *label = historyValues.at(i);
+    for (int i = 0; i < clientGraphValues.length(); i++) {
+        QLabel *label = clientGraphValues.at(i);
         int w = ui->clientsGraph->width() / numSlots;
         int h = label->text().toInt() / (double)arpSniffer->summary.max * ui->clientsGraph->height() * 0.9;
-        int x = ui->clientsGraph->width() - (w * (historyValues.length() - i));
+        int x = ui->clientsGraph->width() - (w * (clientGraphValues.length() - i));
         int y = ui->clientsGraph->height() - h;
 
         label->setGeometry(x, y, w, h);
@@ -123,15 +147,60 @@ void MainWindow::onArpSnifferErrored(QString error) {
     ui->textBrowser->setText("Arp Sniffer module error!\n" + error + "...");
 }
 
+void MainWindow::onTcpDumpSnifferUpdated() {
+    drawPacketsGraph();
+}
+
+void MainWindow::drawPacketsGraph() {
+    double maxPacketsPerSecond = tcpDumpSniffer->summary.maxPackets / (double)TcpDumpSniffer::timeout;
+    if (maxPacketsPerSecond < 100)
+        ui->trafficMaxValue->setText(QString::number(maxPacketsPerSecond, 'f', 1));
+    else if (maxPacketsPerSecond < 1000)
+        ui->trafficMaxValue->setText(QString::number(maxPacketsPerSecond, 'f', 0));
+    else if (maxPacketsPerSecond < 10000)
+        ui->trafficMaxValue->setText(QString::number(maxPacketsPerSecond / 1000.0, 'f', 1) + "k");
+    else if (maxPacketsPerSecond < 100000)
+        ui->trafficMaxValue->setText(QString::number(maxPacketsPerSecond / 1000.0, 'f', 0) + "k");
+
+    QLabel *newLabel = new QLabel(ui->trafficGraph);
+    newLabel->setText(QString::number(tcpDumpSniffer->summary.currentPackets));
+    newLabel->setStyleSheet("background-color: #777; color: rgba(0,0,0,0)");
+    newLabel->setGeometry(0, 0, ui->trafficGraph->width(), ui->trafficGraph->height());
+    trafficGraphValues.append(newLabel);
+
+    int numSlots = 25;
+    if (trafficGraphValues.length() > numSlots) {
+        QLabel *removedLabel = trafficGraphValues.takeFirst();
+        removedLabel->hide();
+        delete removedLabel;
+    }
+
+    for (int i = 0; i < trafficGraphValues.length(); i++) {
+        QLabel *label = trafficGraphValues.at(i);
+        int w = ui->trafficGraph->width() / numSlots;
+        int h = label->text().toInt() / (double)tcpDumpSniffer->summary.maxPackets * ui->trafficGraph->height() * 0.9;
+        int x = ui->trafficGraph->width() - (w * (trafficGraphValues.length() - i));
+        int y = ui->trafficGraph->height() - h;
+
+        label->setGeometry(x, y, w, h);
+        label->show();
+    }
+}
+
+void MainWindow::onTcpDumpSnifferErrored(QString error) {
+    ui->stackedWidget->setCurrentIndex(ERROR);
+    ui->textBrowser->setText("TCP Dump Sniffer module error!\n" + error + "...");
+}
+
 void MainWindow::updateDuration() {
     qint64 secs = duration.elapsed() / 1000;
     ui->durationValue->setText(QString::number(secs) + "s");
 }
 
 void MainWindow::finalizeReport() {
+    ui->progressBar->setValue(20);
     ui->transitionLabel->setText("Finalizing Report...");
 
-    ui->progressBar->setValue(10);
     ui->clientMinValue->setText(QString::number(arpSniffer->summary.min));
     ui->clientMaxValue->setText(QString::number(arpSniffer->summary.max));
     ui->clientNumPointsValue->setText(QString::number(arpSniffer->summary.samplePoints));
@@ -139,15 +208,32 @@ void MainWindow::finalizeReport() {
     ui->clientDistinctIpsValue->setText(QString::number(arpSniffer->summary.distinctIp));
     ui->clientDistinctMacsValue->setText(QString::number(arpSniffer->summary.distinctMac));
     ui->clientDistinctClientsValue->setText(QString::number(arpSniffer->summary.distinctClients));
+    ui->progressBar->setValue(40);
 
-    ui->progressBar->setValue(20);
     drawClientsTrendGraph();
+    ui->progressBar->setValue(60);
 
+    ui->trafficTcpPacketsValue->setText(QString::number(tcpDumpSniffer->summary.totalTcpPackets));
+    ui->trafficUdpPacketsValue->setText(QString::number(tcpDumpSniffer->summary.totalUdpPackets));
+    ui->trafficOtherPacketsValue->setText(QString::number(tcpDumpSniffer->summary.totalOtherPackets));
+    ui->trafficTcpLenValue->setText(QString::number(tcpDumpSniffer->summary.avgTcpLen, 'f', 1));
+    ui->trafficUdpLenValue->setText(QString::number(tcpDumpSniffer->summary.avgUdpLen, 'f', 1));
+    ui->trafficIpValue->setText(tcpDumpSniffer->busiestIp());
+    ui->progressBar->setValue(80);
+
+    drawPacketsTrendGraph();
     ui->progressBar->setValue(100);
     ui->transitionLabel->setText("Finished!");
 
     QApplication::processEvents();
-    QThread::sleep(1);
+    QTimer *t = new QTimer();
+    t->setInterval(1000);
+    t->setSingleShot(true);
+    connect(t, &QTimer::timeout, this, &MainWindow::navigateToReport);
+    t->start();
+}
+
+void MainWindow::navigateToReport() {
     ui->stackedWidget->setCurrentIndex(REPORT);
 }
 
@@ -157,9 +243,26 @@ void MainWindow::drawClientsTrendGraph() {
         label->setStyleSheet("background-color: #777;");
 
         int w = ceil(ui->clientsTrendGraph->width() / (double)arpSniffer->history.length());
-        int h = arpSniffer->history.at(i).connections.length() / (double)arpSniffer->summary.max * ui->clientsTrendGraph->height() * 0.9;
+        int h = arpSniffer->history.at(i).numConnections / (double)arpSniffer->summary.max * ui->clientsTrendGraph->height() * 0.9;
         int x = ui->clientsTrendGraph->width() - (w * (arpSniffer->history.length() - i));
         int y = ui->clientsTrendGraph->height() - h;
+
+        label->setGeometry(x, y, w, h);
+        label->show();
+    }
+}
+
+void MainWindow::drawPacketsTrendGraph() {
+    for (int i = 0; i < tcpDumpSniffer->history.length(); i++) {
+        QLabel *label = new QLabel(ui->trafficTrendGraph);
+        label->setStyleSheet("background-color: #777;");
+
+        int packetsAtI = tcpDumpSniffer->history.at(i).tcpPackets + tcpDumpSniffer->history.at(i).udpPackets + tcpDumpSniffer->history.at(i).otherPackets;
+
+        int w = ceil(ui->trafficTrendGraph->width() / (double)tcpDumpSniffer->history.length());
+        int h = packetsAtI / (double)tcpDumpSniffer->summary.maxPackets * ui->trafficTrendGraph->height() * 0.9;
+        int x = ui->trafficTrendGraph->width() - (w * (tcpDumpSniffer->history.length() - i));
+        int y = ui->trafficTrendGraph->height() - h;
 
         label->setGeometry(x, y, w, h);
         label->show();

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "arpsniffer.h"
+#include "tcpdumpsniffer.h"
 #include "limits.h"
 #include <QDebug>
 #include <QMainWindow>
@@ -31,23 +32,33 @@ public:
 private:
     Ui::MainWindow *ui;
     bool hasNetworkConnection();
+    void finalizeReport();
     void drawClientsGraph();
     void drawClientsTrendGraph();
+    void drawPacketsGraph();
+    void drawPacketsTrendGraph();
 
     QElapsedTimer duration;
     QTimer durationUpdateTimer;
 
-    QList<QLabel *> historyValues;
+    QList<QLabel *> clientGraphValues;
     QThread arpSnifferThread;
     ArpSniffer *arpSniffer;
+
+    QList<QLabel *> trafficGraphValues;
+    QThread tcpDumpSnifferThread;
+    TcpDumpSniffer *tcpDumpSniffer;
 
 private slots:
     void onRecord();
     void onReport();
+    void onServicesStopped();
     void onArpSnifferUpdated();
     void onArpSnifferErrored(QString);
+    void onTcpDumpSnifferUpdated();
+    void onTcpDumpSnifferErrored(QString);
     void updateDuration();
-    void finalizeReport();
+    void navigateToReport();
 };
 
 #endif // MAINWINDOW_H

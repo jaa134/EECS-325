@@ -8,8 +8,8 @@
 #include <QDir>
 #include <QFile>
 #include <QList>
-#include <QDateTime>
 #include <QTimer>
+#include <QThread>
 
 class ArpSniffer : public QObject
 {
@@ -21,7 +21,7 @@ class ArpSniffer : public QObject
     };
 
     struct State {
-        QList<Client> connections;
+        int numConnections;
         QDateTime timeStamp;
     };
 
@@ -38,30 +38,34 @@ class ArpSniffer : public QObject
     };
 
 public:
-    ArpSniffer();
-    void update();
+    explicit ArpSniffer(QObject *parent = nullptr);
     QList<State> history;
     Report summary;
+    bool isRunning;
     void stop();
 
 private:
     bool isStopRequested;
+    QList<Client> connections;
     QList<QString> distinctIp;
     QList<QString> distinctMac;
     QList<Client> distinctClients;
-    const QString outFolder = "arp";
+    const QString outFolder = "arp-scan";
+    QTimer *updateTimer;
     QString makeFileName();
     void parseSystemCall(QString);
     bool isValidMacAddress(QString);
     bool isValidIpAddress(QString);
-    void saveState(QList<Client> connections);
+    void saveState();
     void updateReport();
-    QTimer *updateTimer;
 
 signals:
     void updated();
     void stopped();
     void errored(QString);
+
+private slots:
+    void update();
 };
 
 #endif // ARPSNIFFER_H

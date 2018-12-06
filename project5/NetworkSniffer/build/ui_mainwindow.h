@@ -49,7 +49,9 @@ public:
     QWidget *report;
     QLabel *label_3;
     QFrame *clientsTrendGraph;
-    QFrame *frame_2;
+    QLabel *clientTrendMaxLine;
+    QFrame *trafficTrendGraph;
+    QLabel *trafficTrendMaxLine;
     QLabel *label_5;
     QLabel *label_2;
     QLabel *label_6;
@@ -67,6 +69,19 @@ public:
     QLabel *clientNumPointsValue;
     QLabel *clientMaxValue;
     QLabel *clientMinValue;
+    QLabel *label_15;
+    QLabel *label_16;
+    QLabel *label_17;
+    QLabel *label_26;
+    QLabel *trafficTcpPacketsValue;
+    QLabel *trafficUdpPacketsValue;
+    QLabel *trafficIpValue;
+    QLabel *label_18;
+    QLabel *label_19;
+    QLabel *label_20;
+    QLabel *trafficOtherPacketsValue;
+    QLabel *trafficTcpLenValue;
+    QLabel *trafficUdpLenValue;
     QWidget *error;
     QTextBrowser *textBrowser;
     QLabel *label;
@@ -106,7 +121,7 @@ public:
         clientsGraph->setFrameShadow(QFrame::Raised);
         clientsMaxLine = new QLabel(clientsGraph);
         clientsMaxLine->setObjectName(QStringLiteral("clientsMaxLine"));
-        clientsMaxLine->setGeometry(QRect(1, 10, 373, 1));
+        clientsMaxLine->setGeometry(QRect(1, 9, 373, 1));
         clientsMaxLine->setStyleSheet(QLatin1String("background-color: rgba(0, 0, 0, 0);\n"
 "border: 1px dashed #000;"));
         reportButton = new QPushButton(home);
@@ -132,7 +147,7 @@ public:
         trafficGraph->setFrameShadow(QFrame::Raised);
         trafficMaxLine = new QLabel(trafficGraph);
         trafficMaxLine->setObjectName(QStringLiteral("trafficMaxLine"));
-        trafficMaxLine->setGeometry(QRect(1, 10, 373, 1));
+        trafficMaxLine->setGeometry(QRect(1, 9, 373, 1));
         trafficMaxLine->setStyleSheet(QLatin1String("background-color: rgba(0, 0, 0, 0);\n"
 "border: 1px dashed #000;"));
         trafficLabel = new QLabel(home);
@@ -146,7 +161,7 @@ public:
         clientsMinValue->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         clientsMaxValue = new QLabel(home);
         clientsMaxValue->setObjectName(QStringLiteral("clientsMaxValue"));
-        clientsMaxValue->setGeometry(QRect(5, 50, 30, 20));
+        clientsMaxValue->setGeometry(QRect(5, 49, 30, 20));
         clientsMaxValue->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         trafficMinValue = new QLabel(home);
         trafficMinValue->setObjectName(QStringLiteral("trafficMinValue"));
@@ -154,11 +169,11 @@ public:
         trafficMinValue->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         trafficMaxValue = new QLabel(home);
         trafficMaxValue->setObjectName(QStringLiteral("trafficMaxValue"));
-        trafficMaxValue->setGeometry(QRect(5, 230, 30, 20));
+        trafficMaxValue->setGeometry(QRect(5, 229, 30, 20));
         trafficMaxValue->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         label_4 = new QLabel(home);
         label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(170, 205, 100, 17));
+        label_4->setGeometry(QRect(170, 205, 140, 17));
         stackedWidget->addWidget(home);
         recordButton->raise();
         clientsLabel->raise();
@@ -204,12 +219,22 @@ public:
         clientsTrendGraph->setStyleSheet(QStringLiteral("background-color: #fff;"));
         clientsTrendGraph->setFrameShape(QFrame::StyledPanel);
         clientsTrendGraph->setFrameShadow(QFrame::Raised);
-        frame_2 = new QFrame(report);
-        frame_2->setObjectName(QStringLiteral("frame_2"));
-        frame_2->setGeometry(QRect(5, 315, 410, 80));
-        frame_2->setStyleSheet(QStringLiteral("background-color: #fff;"));
-        frame_2->setFrameShape(QFrame::StyledPanel);
-        frame_2->setFrameShadow(QFrame::Raised);
+        clientTrendMaxLine = new QLabel(clientsTrendGraph);
+        clientTrendMaxLine->setObjectName(QStringLiteral("clientTrendMaxLine"));
+        clientTrendMaxLine->setGeometry(QRect(0, 7, 410, 1));
+        clientTrendMaxLine->setStyleSheet(QLatin1String("background-color: rgba(0, 0, 0, 0);\n"
+"border: 1px dashed #000;"));
+        trafficTrendGraph = new QFrame(report);
+        trafficTrendGraph->setObjectName(QStringLiteral("trafficTrendGraph"));
+        trafficTrendGraph->setGeometry(QRect(5, 315, 410, 80));
+        trafficTrendGraph->setStyleSheet(QStringLiteral("background-color: #fff;"));
+        trafficTrendGraph->setFrameShape(QFrame::StyledPanel);
+        trafficTrendGraph->setFrameShadow(QFrame::Raised);
+        trafficTrendMaxLine = new QLabel(trafficTrendGraph);
+        trafficTrendMaxLine->setObjectName(QStringLiteral("trafficTrendMaxLine"));
+        trafficTrendMaxLine->setGeometry(QRect(0, 7, 410, 1));
+        trafficTrendMaxLine->setStyleSheet(QLatin1String("background-color: rgba(0, 0, 0, 0);\n"
+"border: 1px dashed #000;"));
         label_5 = new QLabel(report);
         label_5->setObjectName(QStringLiteral("label_5"));
         label_5->setGeometry(QRect(5, 185, 180, 20));
@@ -221,11 +246,11 @@ public:
         label_6 = new QLabel(report);
         label_6->setObjectName(QStringLiteral("label_6"));
         label_6->setGeometry(QRect(5, 55, 195, 20));
-        label_6->setStyleSheet(QStringLiteral("background-color: rgb(211, 215, 207);"));
+        label_6->setStyleSheet(QStringLiteral("background-color: rgb(211, 211, 211);"));
         label_8 = new QLabel(report);
         label_8->setObjectName(QStringLiteral("label_8"));
         label_8->setGeometry(QRect(5, 95, 195, 20));
-        label_8->setStyleSheet(QStringLiteral("background-color: rgb(211, 215, 207);"));
+        label_8->setStyleSheet(QStringLiteral("background-color: rgb(211, 211, 211);"));
         label_9 = new QLabel(report);
         label_9->setObjectName(QStringLiteral("label_9"));
         label_9->setGeometry(QRect(5, 75, 195, 20));
@@ -240,7 +265,7 @@ public:
         label_10->setFont(font6);
         label_11 = new QLabel(report);
         label_11->setObjectName(QStringLiteral("label_11"));
-        label_11->setGeometry(QRect(215, 5, 111, 25));
+        label_11->setGeometry(QRect(220, 5, 161, 25));
         label_11->setFont(font6);
         label_12 = new QLabel(report);
         label_12->setObjectName(QStringLiteral("label_12"));
@@ -249,7 +274,7 @@ public:
         label_13 = new QLabel(report);
         label_13->setObjectName(QStringLiteral("label_13"));
         label_13->setGeometry(QRect(5, 135, 195, 20));
-        label_13->setStyleSheet(QStringLiteral("background-color: rgb(211, 215, 207);"));
+        label_13->setStyleSheet(QStringLiteral("background-color: rgb(211, 211, 211);"));
         label_14 = new QLabel(report);
         label_14->setObjectName(QStringLiteral("label_14"));
         label_14->setGeometry(QRect(5, 155, 195, 20));
@@ -282,10 +307,63 @@ public:
         clientMinValue->setObjectName(QStringLiteral("clientMinValue"));
         clientMinValue->setGeometry(QRect(120, 35, 70, 20));
         clientMinValue->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        label_15 = new QLabel(report);
+        label_15->setObjectName(QStringLiteral("label_15"));
+        label_15->setGeometry(QRect(220, 35, 195, 20));
+        label_15->setStyleSheet(QStringLiteral("background-color: rgb(211, 211, 211);"));
+        label_16 = new QLabel(report);
+        label_16->setObjectName(QStringLiteral("label_16"));
+        label_16->setGeometry(QRect(220, 55, 195, 20));
+        label_16->setStyleSheet(QStringLiteral("background-color: rgb(243, 243, 243);"));
+        label_17 = new QLabel(report);
+        label_17->setObjectName(QStringLiteral("label_17"));
+        label_17->setGeometry(QRect(220, 135, 195, 20));
+        label_17->setStyleSheet(QStringLiteral("background-color: rgb(243, 243, 243);"));
+        label_26 = new QLabel(report);
+        label_26->setObjectName(QStringLiteral("label_26"));
+        label_26->setGeometry(QRect(220, 155, 195, 20));
+        label_26->setStyleSheet(QStringLiteral("background-color: rgb(243, 243, 243);"));
+        label_26->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        trafficTcpPacketsValue = new QLabel(report);
+        trafficTcpPacketsValue->setObjectName(QStringLiteral("trafficTcpPacketsValue"));
+        trafficTcpPacketsValue->setGeometry(QRect(325, 35, 80, 20));
+        trafficTcpPacketsValue->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        trafficUdpPacketsValue = new QLabel(report);
+        trafficUdpPacketsValue->setObjectName(QStringLiteral("trafficUdpPacketsValue"));
+        trafficUdpPacketsValue->setGeometry(QRect(325, 55, 80, 20));
+        trafficUdpPacketsValue->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        trafficIpValue = new QLabel(report);
+        trafficIpValue->setObjectName(QStringLiteral("trafficIpValue"));
+        trafficIpValue->setGeometry(QRect(280, 155, 125, 20));
+        trafficIpValue->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        label_18 = new QLabel(report);
+        label_18->setObjectName(QStringLiteral("label_18"));
+        label_18->setGeometry(QRect(220, 75, 195, 20));
+        label_18->setStyleSheet(QStringLiteral("background-color: rgb(211, 211, 211);"));
+        label_19 = new QLabel(report);
+        label_19->setObjectName(QStringLiteral("label_19"));
+        label_19->setGeometry(QRect(220, 95, 195, 20));
+        label_19->setStyleSheet(QStringLiteral("background-color: rgb(243, 243, 243);"));
+        label_20 = new QLabel(report);
+        label_20->setObjectName(QStringLiteral("label_20"));
+        label_20->setGeometry(QRect(220, 115, 195, 20));
+        label_20->setStyleSheet(QStringLiteral("background-color: rgb(211, 211, 211);"));
+        trafficOtherPacketsValue = new QLabel(report);
+        trafficOtherPacketsValue->setObjectName(QStringLiteral("trafficOtherPacketsValue"));
+        trafficOtherPacketsValue->setGeometry(QRect(325, 75, 80, 20));
+        trafficOtherPacketsValue->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        trafficTcpLenValue = new QLabel(report);
+        trafficTcpLenValue->setObjectName(QStringLiteral("trafficTcpLenValue"));
+        trafficTcpLenValue->setGeometry(QRect(325, 95, 80, 20));
+        trafficTcpLenValue->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        trafficUdpLenValue = new QLabel(report);
+        trafficUdpLenValue->setObjectName(QStringLiteral("trafficUdpLenValue"));
+        trafficUdpLenValue->setGeometry(QRect(325, 115, 80, 20));
+        trafficUdpLenValue->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         stackedWidget->addWidget(report);
         label_3->raise();
         clientsTrendGraph->raise();
-        frame_2->raise();
+        trafficTrendGraph->raise();
         label_5->raise();
         label_2->raise();
         label_6->raise();
@@ -303,6 +381,19 @@ public:
         clientDistinctIpsValue->raise();
         clientDistinctMacsValue->raise();
         clientDistinctClientsValue->raise();
+        label_15->raise();
+        label_16->raise();
+        label_17->raise();
+        label_26->raise();
+        trafficTcpPacketsValue->raise();
+        trafficUdpPacketsValue->raise();
+        trafficIpValue->raise();
+        label_18->raise();
+        label_19->raise();
+        label_20->raise();
+        trafficOtherPacketsValue->raise();
+        trafficTcpLenValue->raise();
+        trafficUdpLenValue->raise();
         error = new QWidget();
         error->setObjectName(QStringLiteral("error"));
         textBrowser = new QTextBrowser(error);
@@ -339,9 +430,11 @@ public:
         clientsMaxValue->setText(QApplication::translate("MainWindow", "10", nullptr));
         trafficMinValue->setText(QApplication::translate("MainWindow", "0", nullptr));
         trafficMaxValue->setText(QApplication::translate("MainWindow", "10", nullptr));
-        label_4->setText(QApplication::translate("MainWindow", "(units)", nullptr));
+        label_4->setText(QApplication::translate("MainWindow", "(packets per second)", nullptr));
         transitionLabel->setText(QApplication::translate("MainWindow", "Transition Message", nullptr));
-        label_3->setText(QApplication::translate("MainWindow", "Network Usage Trend", nullptr));
+        label_3->setText(QApplication::translate("MainWindow", "IPv4 Traffic Trend", nullptr));
+        clientTrendMaxLine->setText(QString());
+        trafficTrendMaxLine->setText(QString());
         label_5->setText(QApplication::translate("MainWindow", "Client Connection Trend", nullptr));
 #ifndef QT_NO_TOOLTIP
         label_2->setToolTip(QApplication::translate("MainWindow", "Minimum number of clients found", nullptr));
@@ -363,11 +456,14 @@ public:
         label_10->setToolTip(QApplication::translate("MainWindow", "A client is defined as a MAC Address and IP Address pair", nullptr));
 #endif // QT_NO_TOOLTIP
         label_10->setText(QApplication::translate("MainWindow", "Client Info", nullptr));
-        label_11->setText(QApplication::translate("MainWindow", "Traffic Info", nullptr));
+        label_11->setText(QApplication::translate("MainWindow", "Traffic Analysis", nullptr));
 #ifndef QT_NO_TOOLTIP
         label_12->setToolTip(QApplication::translate("MainWindow", "Number of distinct IP Adresses found", nullptr));
 #endif // QT_NO_TOOLTIP
         label_12->setText(QApplication::translate("MainWindow", "  Distinct IPs:", nullptr));
+#ifndef QT_NO_TOOLTIP
+        label_13->setToolTip(QApplication::translate("MainWindow", "Number of distinct MAC Adresses found", nullptr));
+#endif // QT_NO_TOOLTIP
         label_13->setText(QApplication::translate("MainWindow", "  Distinct MACs:", nullptr));
 #ifndef QT_NO_TOOLTIP
         label_14->setToolTip(QApplication::translate("MainWindow", "Number of distinct Clients found", nullptr));
@@ -375,7 +471,7 @@ public:
         label_14->setText(QApplication::translate("MainWindow", "  Distinct Clients:", nullptr));
         clientDistinctClientsValue->setText(QApplication::translate("MainWindow", "0", nullptr));
 #ifndef QT_NO_TOOLTIP
-        clientDistinctMacsValue->setToolTip(QApplication::translate("MainWindow", "Number of distinct MAC Adresses found", nullptr));
+        clientDistinctMacsValue->setToolTip(QString());
 #endif // QT_NO_TOOLTIP
         clientDistinctMacsValue->setText(QApplication::translate("MainWindow", "0", nullptr));
         clientDistinctIpsValue->setText(QApplication::translate("MainWindow", "0", nullptr));
@@ -383,6 +479,37 @@ public:
         clientNumPointsValue->setText(QApplication::translate("MainWindow", "0", nullptr));
         clientMaxValue->setText(QApplication::translate("MainWindow", "0", nullptr));
         clientMinValue->setText(QApplication::translate("MainWindow", "0", nullptr));
+#ifndef QT_NO_TOOLTIP
+        label_15->setToolTip(QApplication::translate("MainWindow", "Number of TCP packets captured", nullptr));
+#endif // QT_NO_TOOLTIP
+        label_15->setText(QApplication::translate("MainWindow", "  TCP:", nullptr));
+#ifndef QT_NO_TOOLTIP
+        label_16->setToolTip(QApplication::translate("MainWindow", "Number of UDP packets captured", nullptr));
+#endif // QT_NO_TOOLTIP
+        label_16->setText(QApplication::translate("MainWindow", "  UDP:", nullptr));
+#ifndef QT_NO_TOOLTIP
+        label_17->setToolTip(QApplication::translate("MainWindow", "The IP address asscoiated with the most packets", nullptr));
+#endif // QT_NO_TOOLTIP
+        label_17->setText(QApplication::translate("MainWindow", "  Most Packets by IP:", nullptr));
+        label_26->setText(QString());
+        trafficTcpPacketsValue->setText(QApplication::translate("MainWindow", "0", nullptr));
+        trafficUdpPacketsValue->setText(QApplication::translate("MainWindow", "0", nullptr));
+        trafficIpValue->setText(QApplication::translate("MainWindow", "255.255.255.255", nullptr));
+#ifndef QT_NO_TOOLTIP
+        label_18->setToolTip(QApplication::translate("MainWindow", "Number of Misc. packets captured", nullptr));
+#endif // QT_NO_TOOLTIP
+        label_18->setText(QApplication::translate("MainWindow", "  Other:", nullptr));
+#ifndef QT_NO_TOOLTIP
+        label_19->setToolTip(QApplication::translate("MainWindow", "The average length of captured TCP packets", nullptr));
+#endif // QT_NO_TOOLTIP
+        label_19->setText(QApplication::translate("MainWindow", "  Avg TCP  Len:", nullptr));
+#ifndef QT_NO_TOOLTIP
+        label_20->setToolTip(QApplication::translate("MainWindow", "The average length of captured UDP packets", nullptr));
+#endif // QT_NO_TOOLTIP
+        label_20->setText(QApplication::translate("MainWindow", "  Avg UDP Len:", nullptr));
+        trafficOtherPacketsValue->setText(QApplication::translate("MainWindow", "0", nullptr));
+        trafficTcpLenValue->setText(QApplication::translate("MainWindow", "0", nullptr));
+        trafficUdpLenValue->setText(QApplication::translate("MainWindow", "0", nullptr));
         label->setText(QApplication::translate("MainWindow", "System Error", nullptr));
     } // retranslateUi
 
