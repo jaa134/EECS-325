@@ -361,108 +361,40 @@ border: 1px dashed #000;</string>
      </widget>
     </widget>
     <widget class="QWidget" name="report">
-     <widget class="QLabel" name="label_3">
+     <widget class="QLabel" name="trafficTrendLabel">
       <property name="geometry">
        <rect>
         <x>5</x>
-        <y>295</y>
-        <width>180</width>
+        <y>287</y>
+        <width>410</width>
         <height>20</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
        <string>IPv4 Traffic Trend</string>
       </property>
      </widget>
-     <widget class="QFrame" name="clientsTrendGraph">
+     <widget class="QLabel" name="clientTrendLabel">
       <property name="geometry">
        <rect>
         <x>5</x>
-        <y>205</y>
+        <y>170</y>
         <width>410</width>
-        <height>80</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: #fff;</string>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <widget class="QLabel" name="clientTrendMaxLine">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>7</y>
-         <width>410</width>
-         <height>1</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgba(0, 0, 0, 0);
-border: 1px dashed #000;</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QFrame" name="trafficTrendGraph">
-      <property name="geometry">
-       <rect>
-        <x>5</x>
-        <y>315</y>
-        <width>410</width>
-        <height>80</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: #fff;</string>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <widget class="QLabel" name="trafficTrendMaxLine">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>7</y>
-         <width>410</width>
-         <height>1</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgba(0, 0, 0, 0);
-border: 1px dashed #000;</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QLabel" name="label_5">
-      <property name="geometry">
-       <rect>
-        <x>5</x>
-        <y>185</y>
-        <width>180</width>
         <height>20</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
@@ -473,7 +405,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>5</x>
-        <y>35</y>
+        <y>25</y>
         <width>195</width>
         <height>20</height>
        </rect>
@@ -482,7 +414,7 @@ border: 1px dashed #000;</string>
        <string>Minimum number of clients found</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(243, 243, 243);</string>
+       <string notr="true">background-color: rgb(250, 250, 250);</string>
       </property>
       <property name="text">
        <string>  Minimum:</string>
@@ -492,7 +424,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>5</x>
-        <y>55</y>
+        <y>45</y>
         <width>195</width>
         <height>20</height>
        </rect>
@@ -511,7 +443,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>5</x>
-        <y>95</y>
+        <y>85</y>
         <width>195</width>
         <height>20</height>
        </rect>
@@ -530,7 +462,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>5</x>
-        <y>75</y>
+        <y>65</y>
         <width>195</width>
         <height>20</height>
        </rect>
@@ -539,7 +471,7 @@ border: 1px dashed #000;</string>
        <string>Number of data points collected</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(243, 243, 243);</string>
+       <string notr="true">background-color: rgb(250, 250, 250);</string>
       </property>
       <property name="text">
        <string>  Data Points:</string>
@@ -549,7 +481,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>5</x>
-        <y>5</y>
+        <y>0</y>
         <width>101</width>
         <height>25</height>
        </rect>
@@ -572,7 +504,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>220</x>
-        <y>5</y>
+        <y>0</y>
         <width>161</width>
         <height>25</height>
        </rect>
@@ -592,7 +524,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>5</x>
-        <y>115</y>
+        <y>105</y>
         <width>195</width>
         <height>20</height>
        </rect>
@@ -601,7 +533,7 @@ border: 1px dashed #000;</string>
        <string>Number of distinct IP Adresses found</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(243, 243, 243);</string>
+       <string notr="true">background-color: rgb(250, 250, 250);</string>
       </property>
       <property name="text">
        <string>  Distinct IPs:</string>
@@ -611,7 +543,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>5</x>
-        <y>135</y>
+        <y>125</y>
         <width>195</width>
         <height>20</height>
        </rect>
@@ -630,7 +562,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>5</x>
-        <y>155</y>
+        <y>145</y>
         <width>195</width>
         <height>20</height>
        </rect>
@@ -639,7 +571,7 @@ border: 1px dashed #000;</string>
        <string>Number of distinct Clients found</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(243, 243, 243);</string>
+       <string notr="true">background-color: rgb(250, 250, 250);</string>
       </property>
       <property name="text">
        <string>  Distinct Clients:</string>
@@ -649,7 +581,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>120</x>
-        <y>155</y>
+        <y>145</y>
         <width>70</width>
         <height>20</height>
        </rect>
@@ -665,7 +597,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>120</x>
-        <y>135</y>
+        <y>125</y>
         <width>70</width>
         <height>20</height>
        </rect>
@@ -684,7 +616,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>120</x>
-        <y>115</y>
+        <y>105</y>
         <width>70</width>
         <height>20</height>
        </rect>
@@ -700,7 +632,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>120</x>
-        <y>95</y>
+        <y>85</y>
         <width>70</width>
         <height>20</height>
        </rect>
@@ -716,7 +648,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>120</x>
-        <y>75</y>
+        <y>65</y>
         <width>70</width>
         <height>20</height>
        </rect>
@@ -732,7 +664,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>120</x>
-        <y>55</y>
+        <y>45</y>
         <width>70</width>
         <height>20</height>
        </rect>
@@ -748,7 +680,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>120</x>
-        <y>35</y>
+        <y>25</y>
         <width>70</width>
         <height>20</height>
        </rect>
@@ -764,7 +696,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>220</x>
-        <y>35</y>
+        <y>25</y>
         <width>195</width>
         <height>20</height>
        </rect>
@@ -783,7 +715,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>220</x>
-        <y>55</y>
+        <y>45</y>
         <width>195</width>
         <height>20</height>
        </rect>
@@ -792,7 +724,7 @@ border: 1px dashed #000;</string>
        <string>Number of UDP packets captured</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(243, 243, 243);</string>
+       <string notr="true">background-color: rgb(250, 250, 250);</string>
       </property>
       <property name="text">
        <string>  UDP:</string>
@@ -802,7 +734,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>220</x>
-        <y>135</y>
+        <y>125</y>
         <width>195</width>
         <height>20</height>
        </rect>
@@ -811,7 +743,7 @@ border: 1px dashed #000;</string>
        <string>The IP address associated with the most packets</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(243, 243, 243);</string>
+       <string notr="true">background-color: rgb(250, 250, 250);</string>
       </property>
       <property name="text">
        <string>  Most Packets by IP:</string>
@@ -821,13 +753,13 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>220</x>
-        <y>155</y>
+        <y>145</y>
         <width>195</width>
         <height>20</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(243, 243, 243);</string>
+       <string notr="true">background-color: rgb(250, 250, 250);</string>
       </property>
       <property name="text">
        <string/>
@@ -840,7 +772,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>325</x>
-        <y>35</y>
+        <y>25</y>
         <width>80</width>
         <height>20</height>
        </rect>
@@ -856,7 +788,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>325</x>
-        <y>55</y>
+        <y>45</y>
         <width>80</width>
         <height>20</height>
        </rect>
@@ -872,7 +804,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>155</y>
+        <y>145</y>
         <width>125</width>
         <height>20</height>
        </rect>
@@ -888,7 +820,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>220</x>
-        <y>75</y>
+        <y>65</y>
         <width>195</width>
         <height>20</height>
        </rect>
@@ -907,7 +839,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>220</x>
-        <y>95</y>
+        <y>85</y>
         <width>195</width>
         <height>20</height>
        </rect>
@@ -916,7 +848,7 @@ border: 1px dashed #000;</string>
        <string>The average length of captured TCP packets</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(243, 243, 243);</string>
+       <string notr="true">background-color: rgb(250, 250, 250);</string>
       </property>
       <property name="text">
        <string>  Avg TCP  Len:</string>
@@ -926,7 +858,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>220</x>
-        <y>115</y>
+        <y>105</y>
         <width>195</width>
         <height>20</height>
        </rect>
@@ -945,7 +877,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>325</x>
-        <y>75</y>
+        <y>65</y>
         <width>80</width>
         <height>20</height>
        </rect>
@@ -961,7 +893,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>325</x>
-        <y>95</y>
+        <y>85</y>
         <width>80</width>
         <height>20</height>
        </rect>
@@ -977,7 +909,7 @@ border: 1px dashed #000;</string>
       <property name="geometry">
        <rect>
         <x>325</x>
-        <y>115</y>
+        <y>105</y>
         <width>80</width>
         <height>20</height>
        </rect>
@@ -989,10 +921,144 @@ border: 1px dashed #000;</string>
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
-     <zorder>label_3</zorder>
-     <zorder>clientsTrendGraph</zorder>
-     <zorder>trafficTrendGraph</zorder>
-     <zorder>label_5</zorder>
+     <widget class="QScrollArea" name="clientGraphScroll">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>190</y>
+        <width>410</width>
+        <height>88</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border: 0;</string>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="clientGraphScrollContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>410</width>
+         <height>88</height>
+        </rect>
+       </property>
+       <widget class="QFrame" name="clientsTrendGraph">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>410</width>
+          <height>80</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #fff;</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QLabel" name="clientTrendMaxLine">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>7</y>
+           <width>410</width>
+           <height>1</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(0, 0, 0, 0);
+border: 1px dashed #000;</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+     </widget>
+     <widget class="QScrollArea" name="trafficGraphScroll">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>307</y>
+        <width>410</width>
+        <height>88</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border: 0;</string>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="trafficGraphScrollContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>410</width>
+         <height>88</height>
+        </rect>
+       </property>
+       <widget class="QFrame" name="trafficTrendGraph">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>410</width>
+          <height>80</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #fff;</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QLabel" name="trafficTrendMaxLine">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>7</y>
+           <width>410</width>
+           <height>1</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(0, 0, 0, 0);
+border: 1px dashed #000;</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+     </widget>
+     <zorder>trafficTrendLabel</zorder>
+     <zorder>clientTrendLabel</zorder>
      <zorder>label_2</zorder>
      <zorder>label_6</zorder>
      <zorder>label_8</zorder>
@@ -1022,6 +1088,8 @@ border: 1px dashed #000;</string>
      <zorder>trafficOtherPacketsValue</zorder>
      <zorder>trafficTcpLenValue</zorder>
      <zorder>trafficUdpLenValue</zorder>
+     <zorder>clientGraphScroll</zorder>
+     <zorder>trafficGraphScroll</zorder>
     </widget>
     <widget class="QWidget" name="error">
      <widget class="QTextBrowser" name="textBrowser">

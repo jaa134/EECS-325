@@ -238,13 +238,31 @@ void MainWindow::navigateToReport() {
 }
 
 void MainWindow::drawClientsTrendGraph() {
+    int w = ceil(ui->clientsTrendGraph->width() / (double)arpSniffer->history.length());
+    bool needsScrolling = (ui->clientsTrendGraph->width() / (double)arpSniffer->history.length()) < 1;
+    if (needsScrolling) {
+        ui->clientGraphScroll->setWidgetResizable(true);
+        ui->clientGraphScrollContents->setFixedWidth(w * arpSniffer->history.length());
+        ui->clientsTrendGraph->setFixedWidth(w * arpSniffer->history.length());
+        ui->clientGraphScroll->repaint();
+    }
+    else {
+        int scrollBarHeight = 8;
+        QRect cg = ui->clientGraphScroll->geometry();
+        cg.translate(0, scrollBarHeight);
+        ui->clientGraphScroll->setGeometry(cg);
+        QRect cl = ui->clientTrendLabel->geometry();
+        cl.translate(0, scrollBarHeight);
+        ui->clientTrendLabel->setGeometry(cl);
+    }
+
+
     for (int i = 0; i < arpSniffer->history.length(); i++) {
         QLabel *label = new QLabel(ui->clientsTrendGraph);
         label->setStyleSheet("background-color: #777;");
 
-        int w = ceil(ui->clientsTrendGraph->width() / (double)arpSniffer->history.length());
         int h = arpSniffer->history.at(i).numConnections / (double)arpSniffer->summary.max * ui->clientsTrendGraph->height() * 0.9;
-        int x = ui->clientsTrendGraph->width() - (w * (arpSniffer->history.length() - i));
+        int x = i * w;
         int y = ui->clientsTrendGraph->height() - h;
 
         label->setGeometry(x, y, w, h);
@@ -253,15 +271,32 @@ void MainWindow::drawClientsTrendGraph() {
 }
 
 void MainWindow::drawPacketsTrendGraph() {
+    int w = ceil(ui->trafficTrendGraph->width() / (double)tcpDumpSniffer->history.length());
+    bool needsScrolling = (ui->trafficTrendGraph->width() / (double)tcpDumpSniffer->history.length()) < 1;
+    if (needsScrolling) {
+        ui->trafficGraphScroll->setWidgetResizable(true);
+        ui->trafficGraphScrollContents->setFixedWidth(w * tcpDumpSniffer->history.length());
+        ui->trafficTrendGraph->setFixedWidth(w * tcpDumpSniffer->history.length());
+        ui->trafficGraphScroll->repaint();
+    }
+    else {
+        int scrollBarHeight = 8;
+        QRect tg = ui->trafficGraphScroll->geometry();
+        tg.translate(0, scrollBarHeight);
+        ui->trafficGraphScroll->setGeometry(tg);
+        QRect tl = ui->trafficTrendLabel->geometry();
+        tl.translate(0, scrollBarHeight);
+        ui->trafficTrendLabel->setGeometry(tl);
+    }
+
     for (int i = 0; i < tcpDumpSniffer->history.length(); i++) {
         QLabel *label = new QLabel(ui->trafficTrendGraph);
         label->setStyleSheet("background-color: #777;");
 
         int packetsAtI = tcpDumpSniffer->history.at(i).tcpPackets + tcpDumpSniffer->history.at(i).udpPackets + tcpDumpSniffer->history.at(i).otherPackets;
 
-        int w = ceil(ui->trafficTrendGraph->width() / (double)tcpDumpSniffer->history.length());
         int h = packetsAtI / (double)tcpDumpSniffer->summary.maxPackets * ui->trafficTrendGraph->height() * 0.9;
-        int x = ui->trafficTrendGraph->width() - (w * (tcpDumpSniffer->history.length() - i));
+        int x = i * w;
         int y = ui->trafficTrendGraph->height() - h;
 
         label->setGeometry(x, y, w, h);

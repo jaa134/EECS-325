@@ -14,7 +14,7 @@ TcpDumpSniffer::TcpDumpSniffer(QObject *parent) : QObject(parent) {
     summary.avgUdpLen = 0;
 
     updateTimer = new QTimer(this);
-    updateTimer->setInterval(2000);
+    updateTimer->setInterval(500);
     updateTimer->setSingleShot(true);
     connect(updateTimer, &QTimer::timeout, this, &TcpDumpSniffer::update);
     updateTimer->start();

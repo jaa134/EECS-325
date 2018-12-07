@@ -11,7 +11,7 @@ ArpSniffer::ArpSniffer(QObject *parent) : QObject(parent) {
     summary.average = 0;
 
     updateTimer = new QTimer(this);
-    updateTimer->setInterval(2000);
+    updateTimer->setInterval(500);
     updateTimer->setSingleShot(true);
     connect(updateTimer, &QTimer::timeout, this, &ArpSniffer::update);
     updateTimer->start();
