@@ -1,3 +1,9 @@
+/*
+ * Jacob Alspaw
+ * jaa134@case.edu
+ * 12/07/2018
+ */
+
 #include "mainwindow.h"
 #include <QApplication>
 

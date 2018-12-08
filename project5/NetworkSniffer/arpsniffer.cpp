@@ -1,8 +1,15 @@
+/*
+ * Jacob Alspaw
+ * jaa134@case.edu
+ * 12/07/2018
+ */
+
 #include "arpsniffer.h"
 
 ArpSniffer::ArpSniffer(QObject *parent) : QObject(parent) {
     isStopRequested = false;
 
+    //reset our summary
     summary.current = 0;
     summary.max = INT_MIN;
     summary.min = INT_MAX;
@@ -10,6 +17,7 @@ ArpSniffer::ArpSniffer(QObject *parent) : QObject(parent) {
     summary.samplePoints = 0;
     summary.average = 0;
 
+    //make a timer that will update the service repeatedly
     updateTimer = new QTimer(this);
     updateTimer->setInterval(500);
     updateTimer->setSingleShot(true);
@@ -23,17 +31,21 @@ void ArpSniffer::stop() {
 }
 
 void ArpSniffer::update() {
+    //possibly stop the service
     if (isStopRequested) {
         isRunning = false;
         emit stopped();
         return;
     }
 
+    //ensure our output folder exists
     QDir().mkpath(outFolder);
     QString fileName = makeFileName();
 
+    //make the system command
     system(qPrintable("arp-scan -l -g -q > " + fileName));
 
+    //open the file and parse it
     QFile f(fileName);
     if (f.open(QIODevice::ReadOnly)) {
         QString data = f.readAll();
@@ -53,17 +65,22 @@ void ArpSniffer::update() {
         emit errored("File IO");
     }
 
+    //start the timer that pauses thread for brief time before next update
     updateTimer->start();
 }
 
 QString ArpSniffer::makeFileName() {
+    //file name is a timestamped text file
     QString timeStamp = QDateTime::currentDateTime().toString("yymmdd-hhmmsszzz");
     return outFolder + "/" + timeStamp + ".txt";
 }
 
 void ArpSniffer::parseSystemCall(QString data) {
+    //remove previous system call data
     connections.clear();
+    //remove invalid chars
     QStringList split = data.replace('\n', ' ').replace('\t', ' ').split(' ');
+    //append each packet
     for (int i = 0; i < split.length() - 1; i++) {
         if (isValidIpAddress(split.at(i)) && isValidMacAddress(split.at(i + 1))) {
             Client c;
@@ -88,6 +105,7 @@ bool ArpSniffer::isValidMacAddress(QString mac) {
     return regExMacAddress.exactMatch(mac.toUpper());
 }
 
+//update statistics for this run of the system command
 void ArpSniffer::saveState() {
     State s;
     s.numConnections = connections.length();
@@ -112,6 +130,7 @@ void ArpSniffer::saveState() {
     }
 }
 
+//update the arp sniffer report values
 void ArpSniffer::updateReport() {
     summary.current = connections.length();
     if (summary.current > summary.max)

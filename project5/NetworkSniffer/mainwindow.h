@@ -1,3 +1,9 @@
+/*
+ * Jacob Alspaw
+ * jaa134@case.edu
+ * 12/07/2018
+ */
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 

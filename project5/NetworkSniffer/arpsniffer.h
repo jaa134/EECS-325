@@ -1,3 +1,9 @@
+/*
+ * Jacob Alspaw
+ * jaa134@case.edu
+ * 12/07/2018
+ */
+
 #ifndef ARPSNIFFER_H
 #define ARPSNIFFER_H
 
@@ -42,6 +48,7 @@ public:
     QList<State> history;
     Report summary;
     bool isRunning;
+    //stops the service
     void stop();
 
 private:
@@ -52,11 +59,17 @@ private:
     QList<Client> distinctClients;
     const QString outFolder = "arp-scan";
     QTimer *updateTimer;
+    //makes a name of a timestamped text file
     QString makeFileName();
+    //parse the results of the ststem call
     void parseSystemCall(QString);
+    //determines if a string is a valid mac address
     bool isValidMacAddress(QString);
+    //determines if a string is a valid Ip Address
     bool isValidIpAddress(QString);
+    //saves the result of a system call as a simplified state
     void saveState();
+    //updates the total results of collective system calls
     void updateReport();
 
 signals:
@@ -65,6 +78,7 @@ signals:
     void errored(QString);
 
 private slots:
+    //updates the service
     void update();
 };
 

@@ -1,3 +1,9 @@
+/*
+ * Jacob Alspaw
+ * jaa134@case.edu
+ * 12/07/2018
+ */
+
 #ifndef TCPDUMPSNIFFER_H
 #define TCPDUMPSNIFFER_H
 
@@ -46,7 +52,9 @@ public:
     QList<State> history;
     Report summary;
     bool isRunning;
+    //searches for the busiest ip
     QString busiestIp();
+    //stops the service
     void stop();
 
 private:
@@ -55,12 +63,18 @@ private:
     QMap<QString, int> packetCountByIp;
     const QString outFolder = "tcpdump";
     QTimer *updateTimer;
+    //makes a name of a timestamped text file
     QString makeFileName();
+    //parses the result of the system call
     void parseSystemCall(QStringList);
     bool isValidIpAddress(QString);
+    //saves the result of a system call as a simplified state
     void saveState();
+    //updates the total results of collective system calls
     void updateReport();
+    //determines if a scrubbed packet is valid for analysis
     bool isValidPacketInfo(QStringList);
+    //extracts packet info from a delineated list of strings
     Packet gatherPacketInfo(QStringList);
 
 signals:
@@ -69,6 +83,7 @@ signals:
     void errored(QString);
 
 private slots:
+    //updates the service
     void update();
 };
 

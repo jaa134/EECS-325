@@ -1,8 +1,15 @@
+/*
+ * Jacob Alspaw
+ * jaa134@case.edu
+ * 12/07/2018
+ */
+
 #include "tcpdumpsniffer.h"
 
 TcpDumpSniffer::TcpDumpSniffer(QObject *parent) : QObject(parent) {
     isStopRequested = false;
 
+    //reset our summary
     summary.maxPackets = 0;
     summary.currentPackets = 0;
     summary.totalTcpPackets = 0;
@@ -13,6 +20,7 @@ TcpDumpSniffer::TcpDumpSniffer(QObject *parent) : QObject(parent) {
     summary.avgTcpLen = 0;
     summary.avgUdpLen = 0;
 
+    //make a timer that will update the service repeatedly
     updateTimer = new QTimer(this);
     updateTimer->setInterval(500);
     updateTimer->setSingleShot(true);
@@ -26,17 +34,21 @@ void TcpDumpSniffer::stop() {
 }
 
 void TcpDumpSniffer::update() {
+    //possibly stop the service
     if (isStopRequested) {
         isRunning = false;
         emit stopped();
         return;
     }
 
+    //ensure our output folder exists
     QDir().mkpath(outFolder);
     QString fileName = makeFileName();
 
+    //make the system command
     system(qPrintable("timeout " + QString::number(timeout) + " tcpdump ip -v -t -q -n -N > " + fileName));
 
+    //open the file and parse it
     QFile f(fileName);
     if (f.open(QIODevice::ReadOnly)) {
         QStringList data;
@@ -59,18 +71,22 @@ void TcpDumpSniffer::update() {
         emit errored("File IO");
     }
 
+    //start the timer that pauses thread for brief time before next update
     updateTimer->start();
 }
 
 QString TcpDumpSniffer::makeFileName() {
+    //file name is a timestamped text file
     QString timeStamp = QDateTime::currentDateTime().toString("yymmdd-hhmmsszzz");
     return outFolder + "/" + timeStamp + ".txt";
 }
 
 void TcpDumpSniffer::parseSystemCall(QStringList data) {
+    //remove previous system call data
     packets.clear();
-
+    //append each packet
     foreach (auto rawPacketData, data) {
+        //remove invalid chars
         QStringList scrubbedPacketData = rawPacketData
                 .replace('\n', ' ')
                 .replace('\t', ' ')
@@ -79,7 +95,6 @@ void TcpDumpSniffer::parseSystemCall(QStringList data) {
                 .replace(')', ' ')
                 .split(' ');
         scrubbedPacketData.removeAll("");
-
         if (isValidPacketInfo(scrubbedPacketData))
             packets.append(gatherPacketInfo(scrubbedPacketData));
     }
@@ -89,12 +104,14 @@ void TcpDumpSniffer::parseSystemCall(QStringList data) {
 }
 
 bool TcpDumpSniffer::isValidPacketInfo(QStringList scrubbedPacketData) {
+    //valid packets have an ip address, protocol, and a length
     return scrubbedPacketData.length() != 0
             && isValidIpAddress(scrubbedPacketData.at(0))
             && scrubbedPacketData.contains("proto")
             && scrubbedPacketData.contains("length");
 }
 
+//find the positions of important information and use it
 TcpDumpSniffer::Packet TcpDumpSniffer::gatherPacketInfo(QStringList scrubbedPacket) {
     Packet p;
 
@@ -117,6 +134,7 @@ bool TcpDumpSniffer::isValidIpAddress(QString ip) {
     return regExMacAddress.indexIn(ip) || regExMacAddress.exactMatch(ip);
 }
 
+//update statistics for this run of the system command
 void TcpDumpSniffer::saveState() {
     State s;
     s.tcpPackets = 0;
@@ -139,6 +157,7 @@ void TcpDumpSniffer::saveState() {
     history.append(s);
 }
 
+//update the tcpdump sniffer report values
 void TcpDumpSniffer::updateReport() {
     State s = history.last();
     if ((s.tcpPackets + s.udpPackets + s.otherPackets) > summary.maxPackets)
@@ -160,8 +179,10 @@ void TcpDumpSniffer::updateReport() {
 
 QString TcpDumpSniffer::busiestIp() {
     QString ip;
+    //retrive all keys
     QList<QString> keys = packetCountByIp.keys();
     int max = 0;
+    //look at the value of each key and find the max
     foreach (auto k, keys) {
         if (packetCountByIp[k] > max)
             ip = k;
